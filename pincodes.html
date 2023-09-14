@@ -1,57 +1,83 @@
-<!DOCTYPE html> 
 <html>
+  <style>
+    .weatherText {
+      font-family: 'Lato', 'sans-serif';
+      font-size: 24px;
+      text-align: center;
+    }
 
-<head>
-  <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<title>India Pincodes</title> 
-	<link rel="stylesheet" href="jquery.mobile-1.3.1.min.css" />
-	<script src="jquery-1.7.1.min.js"></script>
-	<script src="jquery.mobile-1.3.1.min.js"></script>
-	<script>
-		$(document).ready(function(){
-          //Invoke Pincode Search API
-		  $("#btnSearch").click(function(){
-		    pincode = $("#searchCriteria").val();
-		    var xhr = new XMLHttpRequest({mozSystem: true});
-			xhr.open("GET", "https://api.postalpincode.in/pincode/{pincode}" + pincode, true);
-			xhr.onreadystatechange = function() {
-			  if (xhr.readyState == 4) {
-				obj = JSON.parse(xhr.responseText);
-				result = "<li>Post Office: " + obj.PostOffice + "</li>";
-				result += "<li>District: " + obj.District + "</li>";
-				result += "<li>State: " + obj.State + "</li>";
-				console.log(result);
-				$("#searchResults").html(result);
-				$('#searchResults').listview('refresh');
-			  }
-			}
-			xhr.send();
+    #weatherForm {
+      padding: 20px;
+    }
 
-		  });
-		  });
+    #weatherSubmit {
+      color: white;
+      background-color: #083375;
+      padding: 5px 20px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
 
-	</script>
-</head> 
+    #weatherSubmit:hover {
+      cursor: pointer;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .card {
+      border: 2px solid black;
+      width: 50%;
 
-<body> 
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+  <head>
+    <title class="alignct">Post Office Finder</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="card">
+      <h2 class="weatherText">Post Office Finder Using WebApp</h2>
+      <h1 id="error_head" style="display: none" value="{{error}}">{{error}}</h1>
 
-<!-- Start of first page: #home -->
-<div data-role="page" id="home">
-
-	<div data-role="header" data-position="fixed">
-	    <h3>Postal Pincodes of India</h3>  
-	</div><!-- /header -->
-
-	<div data-role="content">
-        <input type="search" id="searchCriteria" value="" placeholder="Enter Pincode" autofocus/>
-        <a href="#" id="btnSearch" data-role="button">Search</a>
-		<div id="linebreak">&nbsp;</div>	
-		<ul data-role="listview" id="searchResults">
-
-		</ul>		
-
-	</div><!-- /content -->
-</div><!-- /page home -->
-</body>
+      <form class="weatherText" id="weatherForm" action="/" method="post">
+        Location Zip Code:
+        <input
+          class="weatherText"
+          id="weatherInput"
+          type="text"
+          name="zipCode"
+        /><br />
+        <input
+          class="weatherText"
+          id="weatherSubmit"
+          type="submit"
+          value="Submit"
+        />
+        <button
+          id="weatherSubmit"
+          class="weatherText"
+          onclick="document.getElementById(
+         'weatherInput').value = ''"
+        >
+          Clear
+        </button>
+      </form>
+    </div>
+    <!-- <script>
+      let err = document.getElementById('error_head');
+      function myFunction() {
+        alert('Please Enter the Valid Pin Code!');
+      }
+      if (err) {
+        myFunction();
+      }
+    </script> -->
+  </body>
 </html>
